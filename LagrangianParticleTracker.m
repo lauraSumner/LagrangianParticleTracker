@@ -1,11 +1,6 @@
 %This code reads in the particle's coordinates from the position file which is outputted by OpenFOAM.
-%The coordinates are stored and then analysed over time to extract the steady streaming velocity. and
-%store the coordinates in an array . 
+%The coordinates are stored and then analysed over time to extract the steady streaming velocity.
 
-%change directory to the correct timestep
-%once inside follow correct filepath (always the same once in the correct timestep directory)
-
-%open the file and skip to line whihc contains first set of coordinates
 clear all 
 format long 
 
@@ -17,6 +12,10 @@ time=linspace(0,T,timesteps);
 %coordinateMatrix=zeros(200,3,199);
 i=1;
 p=1;
+
+%change directory to the correct timestep
+%once inside follow correct filepath (always the same once in the correct timestep directory)
+
 destination1='/PATHNAME/'; %replace pathname with the filepath up until the time-numbering (eg/ home/Documents/simulation/)
 destination2= '/lagrangian/defaultCloud/';
 
@@ -30,6 +29,7 @@ a
     filepath= [destination1, foldername,destination2, 'positions'];
     FID = fopen(filepath, 'r+');
 
+%skip to line which contains first set of coordinates
 for k=1:19
     array1=fgetl(FID);
 end
@@ -83,8 +83,8 @@ for x=1:numberParticles
     timePlot=time(1:end);
     
 %Usually the time series will need some cut-off, probably because of
-%transient behaviour at the start of the simulation. Change part11 and
-%part12 below to capture the subset of the timeseries you desire.
+%transient behaviour at the start of the simulation. Change part11 (last timestep taken)and
+%part12 (first timestep to take)below to capture the subset of the timeseries you desire.
     part11=1400;
     part12=50;
    
